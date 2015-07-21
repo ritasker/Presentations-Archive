@@ -1,0 +1,210 @@
+Azure: The Good Parts - WebApps
+
+* Introduction
+	* Who am I
+		Richard Tasker, .Net dev for the past 7yrs. But started out in Robotics and AI. 
+		For the past 9mths I have been working for a local start-up, who are looking to revolutionise social media.
+		The backend for our app is an ASP.Net Web API hosted on Azure.
+	* What am I talking about & who is this talk for
+		talking about Azure	WebApps and the supporting services and technologies. 
+		I have designed this talk for developers and IT professionals new to cloud computing.
+		I will be providing an overview of the different features, how to setup and configure the features, plus a demo.
+	* Assumptions
+		Basic HTTP and C# knowledge.
+		The Azure SDK and Visual Studio installed I'll be using 2013.
+		An Azure subscription I will show you how to sign up shortly.
+		Azure is a very large platform even with the subset of feature I will be talking about I cannot give detailed explanations of the features
+		I wont be talking about any of the IaaS services or any of the BI tools that Azure provide. For these service I have separate presentations.
+		Finally I wont be talking about billing, but MS do provide a simple cost calculator -> LINK.
+* What is Azure
+	* On-Premises Data Centres
+		You have the luxury of purchasing exactly the hardware and software you require to run your app. 
+		You also inherit the luxury of the hardware life-cycle, setting up, maintaining and retirement of the hardware.
+		While you have complete control over your hardware, having an on-premises data-centre will force you to purchase hardware in a scale up scenario.
+		Where you have to buy enough hardware to support your app in times of high load, which may only happen a fraction of the time.
+		Therefore for the majority of the time you are paying for hardware you are not using.
+	* Could Computing
+		A modern cloud computing vender will be completely responsibility of purchasing, maintaining and retiring of the hardware for you. 
+		They will typically provide a range of services for you to use. 
+		What usually happens in a cloud computing scenario is that you deploy your app onto enough hardware that will support a typical load. 
+		Then as your app grows in popularity or in times of high load you spin up new instances of the app. 
+		This is the scale out scenario where you only pay for what you use.
+	* Azure
+		Currently Azure is available across the world in 17 data-centres, Azure is also available in 2 additional data-centres in China via a 3rd party provider.
+		In having so many data-centres in different regions across the globe Azure gives you the ability to deploy your app close to your customers.
+		If your app stores sensitive data that cannot be saved outside of the country then you can deploy to data-centres within your country. 
+		Eg the Canadian Health Service use Azure but they don't store anything outside of Canada.
+	* Azure Services
+		Compute services 
+			This includes the Microsoft Azure Cloud Services (web and worker roles),Azure Virtual Machines, Azure Websites, 
+			and Azure Mobile Services.
+		Data services 
+			This includes Microsoft Azure Storage (comprised of the Blob, Queue, Table, and Azure Files services), Azure SQL Database, 
+			and the Redis Cache.
+		Application services 
+			This includes services that you can use to help build and operate your applications, such as the Azure Active Directory, 
+			Service Bus for connecting distributed systems, HDInsight for processing big data, the Azure Scheduler, and Azure Media Services.
+		Network services 
+			This includes Azure features such as Virtual Networks, the Azure Content Delivery Network, and the Azure Traffic Manager.
+	* Azure Portals
+		All of these services can be managed through the Azure Portal. Currently there are two version of the portal.
+		* manage.azure.com
+			The Management Portal, this is the main production environment.
+		* portal.azure.com
+			The preview portal, this is MS's new interface to Azure. Not all features of the Management Portal have been migrated across yet and some new 
+			feature are only available in the Preview Portal. I will mainly be using the Preview Portal. Only when a feature is not available in 
+			the Preview Portal will I switch back to the Management Portal.
+	* Navigating the Portal
+		Down the left we have the navigation bar and on the right the main storyboard area.
+		* HOME - this is where we are now, clicking this get you back to this screen.
+		* BROWSE ALL - Here you can see existing services or add a new service.
+		* NOTIFICATIONS - When you create a new VM for example it will take a few for the server to be provisioned. Here is where Azure will let you know when 
+		you VM is ready to use or if there are any other information you need to know such as outages or any failures.
+		* ACTIVE - The windows that appear when you navigate around the portal are call Blades and a collection of them are called Journeys. Here you can 
+		switch between or close any active Journeys.
+		* BILLING - Here you can find out what subscription you are on and how much money you have spent so far. As you can see I'm on the Pay-As-You-Go subscription 
+		and I have spent £###.
+		* HELP - Doesn't do anything.			
+* WebApps
+	* What is Azure WebApps
+		Azure WebApps is a managed cloud service which allows you to deploy a web application in a very short amount of time.
+		Azure WebApps support applications written in,
+			* .Net
+			* Java
+			* Node
+			* PHP
+			* Python
+		In addition to building your own application if you know you will be building an E-Commerce system or simply hosting a blog, Azure WebApps also 
+		provides the ability to deploy a preconfigured WebApp using one of the popular Web Frameworks.
+		
+		Because you WebApp is going to be highly popular the Azure WebApps Service also give you the ability to scale your app. This can be done manually or you
+		can autoscale your app based on certain metrics such as CPU usage. If you do have multiple instances Azure WebApps also provides a configurable load 
+		balancer.
+	* Creating and Deploying a WebApp
+		* Create a WebApp via the Portal
+		* Create a new ASP.Net app in VS
+		* Deploy the app from VS
+	* Configuration
+		(Back in the portal, head over to the WebApp you have just created and deployed. Find the setting icon in the top bar.)
+		I am not going to go through all of the configurations settings, why? because is will be really boring and secondly I don't have time. 
+		But I will show the really useful ones.
+		
+		* Application Settings
+			In the Application Settings blade we can see some settings for .Net, PHP, Java, etc versions amongst other settings.
+			* Always on
+				Is great for stopping IIS powering down your app when it has been inactive for a while. It will regularly ping you app to keep it in a 
+				primed state.
+			* Remote Debugging
+				This has been really helpful for me in the past when I have had bugs that aren't reproducible locally. As long as you have the same version of the code locally
+				you can enable remote debugging and debug the code locally. But it can be quite slow.
+			* App Settings and Connection Strings
+				When you deploy your app, Azure will override the connection strings and app settings you have in your web.config. This is rally useful if you don't want 
+				the password to your production database in a config transform for everyone to see.
+		* Domain names and SSL
+			It is quite simple to setup a custom domain name and add SSL certificates in Azure.
+		* Scaling - Azure provides 3 scaling options,
+			* Manual
+				Here you can simply select how many instances of your app you want running at once.
+			* CPU Percentage
+				This the basic version of Auto Scale, the 1st step is to choose the min / max number of instances you want to scale to.
+				Then select the average CPU load across all active instances. If the average CPU load goes above the upper limit it will spin up a new instance 
+				of the app. ANd on the lower limit of the threshold it will shutdown an instance.
+			* Schedule and Performance Rules
+				This is the advanced version of the autoscale service.
+				Before you can start adding rules, you need to add a profile.
+				A Profile tells Azure when to run the attached set of rules, and there are three options, Always, Recurrence and Fixed Date.
+				Lets look at the last two first.
+				* Recurrence
+					Lets say you have an app that only gets high load during business hours (Mon-Fri, 08:00 - 18:00). You can setup autoscale rules to handle that
+					load here. For example you can say from,
+						* 08:00 Monday to Friday, when the CPU load is above 65% add a new instance.
+							And when the CPU load is below 50% decrease the instances by 1.
+						* 18:00 Monday to Friday, when the CPU load is above 85% add a new instance.
+							And when the CPU load is below 70% decrease the instances by 1.
+				* Fixed Date
+					This option is great if you know you are going to get high load in a set period, for example your company maybe releasing the latest version
+					of their highly successful online game and they know based on previous releases that the servers were hammered for the first week.
+				* Always
+					This option is for when your app has high load times that are irregular and unpredictable, for example. You may have a stock trading site 
+					that already has high volumes for traffic around the clock, but when news of a certain country has missed their payment deadline, again.
+					People who have shares in Greek companies may want to sell them asap.
+	* Any WebApp Questions
+* Azure SQL
+	If you have an on premise server with a vanilla install of the latest version of Windows Server, how long will it take to provision a SQL Server install?
+	
+	Lets create one now! +New -> Data + Storage -> SQL Database. Give the database a name (leedssharp), we also need a server to attach the database too.
+	If you already have a server created you can select it here or create a new one. 
+	We will have to create a new one. 
+		* Lets give the server a name, this has to be unique as it will become part of the URL you will use to connect to the server.
+		* Add an admin account
+		* Then select the data centre we want to use.
+	Next you can either setup a blank db or use the Adventure Works sample db, or if you had a backup you could restore from the backup.
+	We are almost done, we just need to select the pricing plan for the database. There are a few to choose from, differing in features, storage size and DTUs.
+		A DTU or Database Throughput Unit, is a value that represents how much CPU, memory, etc resource that database can have. Each server has a max of 2000 
+		DTUs which you can spend in any combination of pricing tiers. For example if you only selected the P3 tier you could only have 2 DBs, but if you only 
+		selected the S1 tier you could have 200 DBs.
+	Finally we have to allocate the server to a resource group.
+	While that is being setup it will talk a bit more about the Azure SQL Service. What Azure is doing here is basically a Database-as-a-Service. They are 
+	giving you a SQL Database in the cloud, which takes away all the maintenance and licensing costs. Also the fact I am stood here provisioning a SQL instance
+	in front of you is proof that the time spent setting up a SQL server is greatly reduced.
+	Azure SQL provides some great features such as,
+		* Elastic Scale - If you business is doing well you may need to think about sharding your DB. Azure provide a set of tools that will help you do so automatically.
+		* Predicable Performance - Because each database is allocated a fixed amount of resource, even if there is a database in the datacentre being hammered,
+		that wont effect your database.
+		* Business Continuity - Each database in Azure SQL is part of a cluster of replication nodes, one primary and 2 secondary. Also all transactions are not 
+		considered successful until the data has been written to the primary and at least one of the secondary nodes. There is also the option to setup 
+		geo-replication.
+		* And from the developer point of view, there is no major difference between Azure SQL and SQL Server. So you can continue using your favourite tools.
+	Check to see if the server is up. Any questions? If not GOTO Azure SQL vs SQL Server.
+	Now our server has been created lets have a quick looks at the portal. To see what has been created we will connect via SQL Management Studio. 
+		(Enter details, click connect, get an error.)
+	By Default Azure SQL denies all access to it. You have to add your IP address to a white list of allowed IPs, this includes the IPs of other Azure services.
+	Now we are connected, you can see it looks like we are connect to any other instance of SQL Server.
+	To show you this is just like working with a regular SQL Server lets create some tables, add some data and run a few queries.
+	* Azure SQL vs SQL Server
+		The Azure version of SQL is a cut down version of SQL Server. If you are thinking of using Azure SQL you should know it does not support,
+			* Windows Authentication - The server is in the cloud not within your company network.
+			* Distributed Transactions - Your cannot create linked servers, therefore you cannot commit transactions between them.
+			* Database Mirroring - This feature of SQL Server is redundant due to the data replication nodes and the Geo-Replication that can be setup.
+			* SQL Server Agent / Jobs - These are not supported on Azure SQL, but you can use the Azure Automation services to replace whatever jobs you were 
+			running.
+		Azure also does a few things differently,
+			* All tables must a clustered index
+			* Idle connections are closed after 30mis
+			* You can only connect to your SQL instance on port 1433
+* Azure Storage
+	Is another managed service that provides durable, scalable and redundant storage. Every Azure subscription get 500TB of storage which can be used across its
+	three services.
+		* Blob Storage
+		* Table Storage
+		* And Queues
+	* Blob Storage
+		Blob is an acronym for Binary Large OBject, which are files. They can be anything from images to database backups. Due to the nature of the 
+		cloud you don't know which server your request has been sent to. So you should avoid saving files to the servers file system. 
+		Blob storage gives you the ability to store and access files from anywhere in the world. You can interact with blob storage via its REST API or via any of the
+		client libraries provided. You can also give read only access by sharing a URL to the blob.
+		
+		You will need a storage account before you can access blob storage. Once you have one then you can start adding containers. Containers can be thought of like
+		folders on you file system. A storage account can have an unlimited number of container and a container can have an unlimited number of files, up to the 
+		storage account limit of 500TB.
+		
+		Blob storage only allows for a single level of containers, therefore you cannot have containers within containers. But blob storage does try to simulate a 
+		hierarchical file system by pre-pending what would be folder names and slashes to beginning of the file name.
+		In the following examples, "cars" is the container name and everything after is the blob name. Depending on the blob storage viewer you use you will see a 
+		folder structure or just a list of blobs in the container.
+	* Table Storage
+		Table storage is a schema-less NoSQL data store, that is scalable, redundant and fast. It is fast because every table has a clustered index which is used to 
+		query the data. The index consists of a Partition Key and a Row Key and together they make a unique ID. The Partition Key is used to shard the data between
+		different nodes in the storage cluster, records with the same partition key are stored on the same node and the row key is used for uniqueness within the
+		partition. The tables also have timestamp column which updates when the record is updated. The timestamp column is also used as an E-Tag to maintain data 
+		integrity. 
+		
+		As well as the the 3 system properties each table entity can have up to 252 additional properties which are key / values. Because table storage is scheme
+		less not every record needs all the properties. In this example table storage is being used as a log. The first record is only logging the fact a clean up job 
+		had completed. The second has logged an exception, with a stack trace for someone to review later.
+		
+		When designing your tables your relly need to think about how to partition your data to get the maximum performance benefits.
+		In this example I have a collection of users indexed by email. The domain part and the local part of the email address has been used as the partition and row 
+		keys. 
+* Cloud Services
+* Summary
