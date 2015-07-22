@@ -203,8 +203,40 @@ Azure: The Good Parts - WebApps
 		less not every record needs all the properties. In this example table storage is being used as a log. The first record is only logging the fact a clean up job 
 		had completed. The second has logged an exception, with a stack trace for someone to review later.
 		
-		When designing your tables your relly need to think about how to partition your data to get the maximum performance benefits.
+		When designing your tables your really need to think about how to partition your data to get the maximum performance benefits.
 		In this example I have a collection of users indexed by email. The domain part and the local part of the email address has been used as the partition and row 
-		keys. 
+		keys. When I search for a user by email I will split the email on the @ symbol and only search for the user within the relevent partition. Because you are querying
+		on a subset of the data this is lighting quick. Troy Hunt has written a really good blog post about how he setup table storage for his Have I been Pwnd site. In it
+		he say that he had to put a 400ms delay into his code because table storage was returning too quickly and the UX didn't feel real. 
+		http://www.troyhunt.com/2013/12/working-with-154-million-records-on.html
+	* Queues
+		THe Azure Queues is a simple service for storing and retreving messages. Each message a max limit of 64KB in size but you can have as many messages as you want 
+		in as many queues as you want up to the 500GB limit. Azure does provide another queue service ServiceBus. This is a more advanced queue which follows the AMQP
+		standard and has features such as sessions, topics, transactions, duplicate detection, automatic dead-lettering, and publish/subscribe capabilities. If you are
+		interacting with external systems using the AMQP or just want to use some of these features then Service Bus might be for you. But if you are not conserned with
+		that and you just want a simple way to communicate with the different parts of your app then Azure Queues would be the better choice. 
+		For more info see, https://azure.microsoft.com/en-gb/documentation/articles/service-bus-azure-and-service-bus-queues-compared-contrasted/
+		
+		What would you use queues for? A good example is a website that allows users to upload images. But the site needs to create a thumbnail for each image. THe thumbnail
+		generation will take a long time to complete. You wouldn't want to hold the user up while that process is happening. So uploading the image to blob storage and putting
+		the image blob url in a message on a queue so the image can be processed outside of the webapp. Doing this stops the having to wait for the image to be processed 
+		before continuing. But also return the request thread to the thread pool freeing it up to handle the next request. Which is one of the first steps to make your site
+		scaleable.
+	* Limitations of Azure Storage (as of 15/07/2015)  https://azure.microsoft.com/en-gb/documentation/articles/azure-subscription-service-limits/
+		 * Storage Accounts per subscription = 20
+		 * TB per Storage Account = 500TB
+		 * Max File Share size (this could be a folder of multiple files) = 5TB
+		 * Total Request Rate / Storage Account = 20,000
+		 * Throughput on a single Blob = 60MB / Sec or 500 requests / sec
+		 * Throughput on a single queue = 2000 messages / sec
+		 * Throughput on a single Table Partition = 2000 entities / sec
+		 * Max Ingress / Storage Account (US) = 10Gbps (GRS), 20Gbps (LRS)
+		 * Max Egress / Storage Account (US) = 20Gbps (GRS), 30Gbps (LRS)
+		 * Max Ingress / Storage Account (EU & ASIA) = 5Gbps (GRS), 10Gbps (LRS)
+		 * Max Egress / Storage Account (EU & ASIA) = 10Gbps (GRS), 15Gbps (LRS)
+	* Storage Demo
+		* Setup a storage account
+		* Code sample - Image Upload and Processing, this demo will show you how to upload an image to blob storage, write a record to table storeage, write a message to a
+			queue. Read a message off a queue and update a record in table storage.
 * Cloud Services
 * Summary
