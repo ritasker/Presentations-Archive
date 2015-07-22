@@ -1,1 +1,0 @@
-C:\Users\ritas\Documents\Presentations\Current\Azure The Good Parts Web Apps\Code_Demos\Storage_Demo\Storage_Demo.Uploader\bin\Debug\Storage_Demo.Uploader.exe.config
