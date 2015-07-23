@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage_Demo.Uploader", "Storage_Demo.Uploader\Storage_Demo.Uploader.csproj", "{5EC96C3A-4398-4A5A-9174-A197D158ED3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage_Demo.Processor", "Storage_Demo.Processor\Storage_Demo.Processor.csproj", "{B3F7C941-4B47-4F0E-BE3B-AE7BC24842FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5EC96C3A-4398-4A5A-9174-A197D158ED3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EC96C3A-4398-4A5A-9174-A197D158ED3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EC96C3A-4398-4A5A-9174-A197D158ED3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3F7C941-4B47-4F0E-BE3B-AE7BC24842FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F7C941-4B47-4F0E-BE3B-AE7BC24842FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F7C941-4B47-4F0E-BE3B-AE7BC24842FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F7C941-4B47-4F0E-BE3B-AE7BC24842FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

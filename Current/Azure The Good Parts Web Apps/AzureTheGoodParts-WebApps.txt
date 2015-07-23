@@ -169,9 +169,15 @@ Azure: The Good Parts - WebApps
 			* SQL Server Agent / Jobs - These are not supported on Azure SQL, but you can use the Azure Automation services to replace whatever jobs you were 
 			running.
 		Azure also does a few things differently,
-			* All tables must a clustered index
+			* All tables must have a clustered index
 			* Idle connections are closed after 30mis
 			* You can only connect to your SQL instance on port 1433
+	* DocumentDB
+		Azure also provide a number of alternative data stores. Table storage, which I will talk about shortly and DocumentDB.
+		DocumentDB is a fully managed document database as a service specifically designed for moden mobile and web applications. DocumentDB is fast, schemaless and 
+		easily scaleable. It is possible to query your JSON documents using SQL. With minor modification your existing queries can be ported for use with the service. 
+		DocumentDb has deep intergration with Javascript allowing developer to execute multi-document transactions via familiar methods such as stored procedures, 
+		triggers, and UDFs. More info can be found at https://azure.microsoft.com/en-gb/documentation/articles/documentdb-introduction/
 * Azure Storage
 	Is another managed service that provides durable, scalable and redundant storage. Every Azure subscription get 500TB of storage which can be used across its
 	three services.
