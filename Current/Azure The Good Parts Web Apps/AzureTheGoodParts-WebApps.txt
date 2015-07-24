@@ -174,10 +174,9 @@ Azure: The Good Parts - WebApps
 			* You can only connect to your SQL instance on port 1433
 	* DocumentDB
 		Azure also provide a number of alternative data stores. Table storage, which I will talk about shortly and DocumentDB.
-		DocumentDB is a fully managed document database as a service specifically designed for moden mobile and web applications. DocumentDB is fast, schemaless and 
-		easily scaleable. It is possible to query your JSON documents using SQL. With minor modification your existing queries can be ported for use with the service. 
-		DocumentDb has deep intergration with Javascript allowing developer to execute multi-document transactions via familiar methods such as stored procedures, 
-		triggers, and UDFs. More info can be found at https://azure.microsoft.com/en-gb/documentation/articles/documentdb-introduction/
+		DocumentDB is a fully managed document database as a service specifically designed for modern mobile and web applications. DocumentDB is fast, schemaless and 
+		easily scaleable. It is possible to query your JSON documents using SQL. DocumentDb has deep intergration with Javascript allowing developer to execute multi-document 
+		transactions via familiar methods such as stored procedures, triggers, and UDFs. More info can be found at https://azure.microsoft.com/en-gb/documentation/articles/documentdb-introduction/
 * Azure Storage
 	Is another managed service that provides durable, scalable and redundant storage. Every Azure subscription get 500TB of storage which can be used across its
 	three services.
@@ -216,7 +215,7 @@ Azure: The Good Parts - WebApps
 		he say that he had to put a 400ms delay into his code because table storage was returning too quickly and the UX didn't feel real. 
 		http://www.troyhunt.com/2013/12/working-with-154-million-records-on.html
 	* Queues
-		THe Azure Queues is a simple service for storing and retreving messages. Each message a max limit of 64KB in size but you can have as many messages as you want 
+		The Azure Queues is a simple service for storing and retreving messages. Each message a max limit of 64KB in size but you can have as many messages as you want 
 		in as many queues as you want up to the 500GB limit. Azure does provide another queue service ServiceBus. This is a more advanced queue which follows the AMQP
 		standard and has features such as sessions, topics, transactions, duplicate detection, automatic dead-lettering, and publish/subscribe capabilities. If you are
 		interacting with external systems using the AMQP or just want to use some of these features then Service Bus might be for you. But if you are not conserned with
@@ -232,7 +231,7 @@ Azure: The Good Parts - WebApps
 		 * Storage Accounts per subscription = 20
 		 * TB per Storage Account = 500TB
 		 * Max File Share size (this could be a folder of multiple files) = 5TB
-		 * Total Request Rate / Storage Account = 20,000
+		 * Total Request Rate / Storage Account / Sec = 20,000
 		 * Throughput on a single Blob = 60MB / Sec or 500 requests / sec
 		 * Throughput on a single queue = 2000 messages / sec
 		 * Throughput on a single Table Partition = 2000 entities / sec
