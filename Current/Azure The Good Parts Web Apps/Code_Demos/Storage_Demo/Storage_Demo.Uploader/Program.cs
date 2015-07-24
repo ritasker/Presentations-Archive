@@ -1,14 +1,12 @@
-﻿using Microsoft.WindowsAzure.Storage;
-using Storage_Demo.Uploader.Models;
+﻿using System;
 using System.Configuration;
-using Faker;
-using Microsoft.WindowsAzure.Storage.Table;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Queue;
 using System.Drawing;
 using System.IO;
-using System;
-using System.Drawing.Imaging;
+using System.Reflection;
+using Faker;
+using Storage_Demo.Shared.Messages;
+using Storage_Demo.Shared.Models;
+using Storage_Demo.Shared.Storage;
 
 namespace Storage_Demo.Uploader
 {
@@ -16,56 +14,35 @@ namespace Storage_Demo.Uploader
     {
         static void Main(string[] args)
         {
-            var connStr = ConfigurationManager.AppSettings["StorageConnectionString"];
-            CloudStorageAccount storageAccount = string.IsNullOrEmpty(connStr) 
-                ? CloudStorageAccount.DevelopmentStorageAccount
-                : CloudStorageAccount.Parse(connStr);
+            // Setup Storage
+            var storageAccessor = new StorageAccessor(ConfigurationManager.AppSettings["StorageConnectionString"]);
 
-            // Get Storage Clients
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+            // Table Storage
+            TableStorageService tableStorageService = new TableStorageService(storageAccessor.CreateTableClient(), "Users");
+            User user = new User(Internet.Email(), Name.First(), Name.Last());
+            tableStorageService.Add(user);
 
-            // Setup Table
-            CloudTable table = tableClient.GetTableReference("Users");
-            table.CreateIfNotExists();
+            // Blob Storage
+            var blobStorageService = new BlobStorageService(storageAccessor.CreateBlobClient(), "uploads");
+            var blobLocation = string.Format("{0}/{1}.jpg", user.Id, Guid.NewGuid().ToString("N"));
+            Image avatar = Image.FromFile(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Images\Avatar-AirBender.jpg"));
+            blobStorageService.UploadImage(avatar, blobLocation);
 
-            // Setup Blob
-            CloudBlobContainer container = blobClient.GetContainerReference("uploads");
-            container.CreateIfNotExists();
-            
+            // Azure Queues
+            AzureQueueService azureQueueService = new AzureQueueService(storageAccessor.CreateQueueClient(), "image-resize");
+            azureQueueService.AddMessage(new ResizeImageMessage(user.Id, user.Email, blobLocation));
 
-            // Setup Blob
-            CloudQueue queue = queueClient.GetQueueReference("image-resize");
-            queue.CreateIfNotExists();
+            Console.WriteLine("User Details");
+            Console.WriteLine("Id : {0}", user.Id);
+            Console.WriteLine("Email : {0}", user.Email);
+            Console.WriteLine("First Name : {0}", user.FirstName);
+            Console.WriteLine("Last Name : {0}", user.LastName);
+            Console.WriteLine("Avatar Url : {0}", user.AvatarUrl);
 
-            // Save User Record
-            var usr = new User(Internet.Email(), Name.First(), Name.Last());
-            table.Execute(TableOperation.InsertOrMerge(usr));
+            Console.WriteLine();
+            Console.WriteLine("Blob Url : {0}", blobLocation);
 
-            // Upload Image to Blob
-            Image avatar = Image.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Images\Avatar-AirBender.jpg"));
-
-            using (var stream = avatar.ToStream(ImageFormat.Jpeg))
-            {
-                var blob = container.GetBlobReferenceFromServer(string.Format("{0}\\{1}.jpg", usr.UserId, Guid.NewGuid().ToString("N")));
-                blob.UploadFromStream(stream);                
-            }
-
-            // Add message on the Queue
-        }
-
-        
-    }
-
-    public static class ImageHelpers
-    {
-        public static Stream ToStream(this Image image, ImageFormat formaw)
-        {
-            var stream = new MemoryStream();
-            image.Save(stream, formaw);
-            stream.Position = 0;
-            return stream;
+            Console.Read();
         }
     }
 }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage_Demo.Uploader", "St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage_Demo.Processor", "Storage_Demo.Processor\Storage_Demo.Processor.csproj", "{B3F7C941-4B47-4F0E-BE3B-AE7BC24842FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage_Demo.Shared", "Storage_Demo.Shared\Storage_Demo.Shared.csproj", "{E77AC746-CAA5-47D4-9121-BCDDF46C242F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B3F7C941-4B47-4F0E-BE3B-AE7BC24842FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3F7C941-4B47-4F0E-BE3B-AE7BC24842FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3F7C941-4B47-4F0E-BE3B-AE7BC24842FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E77AC746-CAA5-47D4-9121-BCDDF46C242F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E77AC746-CAA5-47D4-9121-BCDDF46C242F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E77AC746-CAA5-47D4-9121-BCDDF46C242F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E77AC746-CAA5-47D4-9121-BCDDF46C242F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
