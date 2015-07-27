@@ -244,4 +244,31 @@ Azure: The Good Parts - WebApps
 		* Code sample - Image Upload and Processing, this demo will show you how to upload an image to blob storage, write a record to table storeage, write a message to a
 			queue. Read a message off a queue and update a record in table storage.
 * Cloud Services
+	* About
+	* Demo
+	* Web Apps vs Web Roles
+		By now, if I am doing the whole presenting thing right, you should know a bit about WebApps and Web Roles in Azure. You can probably see the similarities, but are 
+		asking yourself what are the differences? Or, When would I use one over the other? 
+		* WebApps
+			The Azure WebApps service is very similar to any other hosting company. You can deploy files using FTP, or use git to instantly update the files on commit. Azure
+			WebApps provide templates and frameworks via the Marketplace. All the familiarities you have with traditional webhosting is here in Azure WebApps.
+			
+		* Web Roles
+			Web Roles is where the magic happens. A Web Role is a cloud service, when using cloud services you are getting the full PaaS experience.
+			Web Roles give you more control over the environment,  unlike traditional hosting and WebApps you can RDP on to the servers and get direct access to IIS, if you 
+			are running Windows. But you don't have to worry about paching and maintaing the server the Azure team takes care of it.
+			
+			WebRoles get two staging slots by default, in WebApps you only get the one but you can add more manually. When you setup a new Web Role a Staging and Production 
+			environment is created for you. These environments are identical, this mean you no longer havethe worry of your code working in the staging/test environment and 
+			crashiong in production.
+			
+			There a higher level of CDN intergeation, it requires a little configuration but because you have more control it can be done. 
+			The same goes for scripts that require elevated privleges, if you are thinking about migrasting a legacy system to Azure then you are able to run those scripts with a
+			Web Role.
+			
+			Lastly scaling works differently in Web Roles. With a WebApp you scale out the number of VMs running. In Web Roles you can still just increase the number of VMs you have,
+			but you can also increase the number of Web Role instances are running in the VM.
+			
+	* Web Jobs vs Worker Roles
+		http://blogs.msdn.com/b/tomholl/archive/2015/04/01/applying-a-web-and-worker-roles-concept-to-the-azure-app-service.aspx
 * Summary
