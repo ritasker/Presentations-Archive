@@ -245,6 +245,36 @@ Azure: The Good Parts - WebApps
 			queue. Read a message off a queue and update a record in table storage.
 * Cloud Services
 	* About
+		In Microsofts infinate wisdom they have given the same name to two different Azure services.
+			* One is a management tool for VM clusters. Which provides features like load balencing between the clustered VM nodes and maintaining the availbility of the nodes.
+			* The other is made up of managed VMs called Web Roles and Worker Roles.
+			* Cloub Services is an example of one of the Platform-as-a-Service technologies available on Azure.
+				* It is a managed service so you do have to worry about patching and maintaining the VM.
+				* Although you can RDP to the VM for extra configuration options.
+				* Cloud Services are perfectly suited for application that need to scale reliably with low administration needs.
+				* Azure provide SDKs for a multitude of languges.
+					* .Net
+					* Java
+					* PHP
+					* Python
+					* Node.js
+					* and more
+				* Both the Web and Worker roles have an Entry Point class which methods that are called by the Cloud Service at specific points in the roles lifetime.
+					* OnStart - Any setup codes goes here, and has to return true or the role will recycle and try again.
+					* Run - This is where the main roles code is called from, this should be a infinate loop. If this method throws an exception the role will be recycled.
+					* OnStop - Any tear down code goes in here. So if you need to clear queues or need write to logs before the roles is stopped.
+			* Web Roles
+				* Run on top of IIS, so you can host ASP.Net Websites and Web APIs, WCF Services or any other technology that can be ran on IIS.
+				* You can have multiple application endpoints in one Web Role instance. For example, you could expose your app via a HTML interface, a REST API or a WCF service.
+				* The Azure Cloud Service calls the OnStart event before the it starts the main web application. This means you can get the app into a ready state, like 
+				prepopulating a cache or createing tables or queues.
+			* Worker Roles
+				* WorkerRoles don't run on IIS. They can be considered as Windows services that execute background tasks but in the cloud.
+				* Worker Roles are hosted in thier own VMs. So any heavy lifting the Worker Roles does wont impact on the performance of other resourses. Unlike WebJobs but 
+				I will come on to that later.
+			* The Web / Worker Role patern is a common architectual design pattern within the Azure Cloud Services, common scenarios for this pattern is to have the Web Role handel
+			any HTTP requests comming in to the app. Then for the Web Role to pass any intensive work off to the Worker Role usually via a queue.
+			image Url - https://acomdpsstorage.blob.core.windows.net/dpsmedia-prod/azure.microsoft.com/en-us/documentation/articles/fundamentals-introduction-to-azure/20150720070853/cloudservicesintronew.png
 	* Demo
 	* Web Apps vs Web Roles
 		By now, if I am doing the whole presenting thing right, you should know a bit about WebApps and Web Roles in Azure. You can probably see the similarities, but are 
@@ -270,5 +300,32 @@ Azure: The Good Parts - WebApps
 			but you can also increase the number of Web Role instances are running in the VM.
 			
 	* Web Jobs vs Worker Roles
-		http://blogs.msdn.com/b/tomholl/archive/2015/04/01/applying-a-web-and-worker-roles-concept-to-the-azure-app-service.aspx
+		I have told you that any heavy lifting or any background task should be done with a worker role rather than you app and that still holds true. But let me introduce you to the
+		worker roles little brother the WebJob. WebJobs allow you to run programs or scripts in your WebApp service. You can run a WebJob either on demand or continuously. 
+		
+		WebJobs run along side you WebApp and uses the same resources, hence why I say its the worker roles little brother as you will still want to do any intensive work with 
+		a worker role because they wont effect the performance of the web app.
+		
+		Webjobs can be as simple as Console.Writeline("Hello world") or you can use the Azure WebJobs SDK to pull in cool features such as triggering a job when a file is uploaded to a 
+		blob storage container or when a message is put on a queue.
+		
+		So if the Web and Worker role architecture is too much for your small WebApp then WebJobs is one of the many services available and waiting for you on Azure.
 * Summary
+	I have spoken about
+		* The differences and pit-falls of on-premise and cloud computing.
+		* I have shown you the Azure Portals and told you what services are available with Azure 
+		* I started to focus on WebApps and how to create, Deploy and configure your WebApp.
+		* Then we looked at the different data storage options such as 
+			* Azure SQL, where I showed you how to create and connect to a Azure SQL intance.
+			* We had a look at the DocumentDB service
+		* Next we looked at the Azure Storage service, where I showed you some of the features of
+			* blob storage
+			* table storage
+			* Azure queues
+		I also breifly spoke about the ServiceBus service. Then finished that section off with a little code demo.
+		* Finally I talked about Cloud Services which are made up of Web Roles and Worker Roles. I then converted
+		the earlier Storage Demo to use a worker role to resize the image.
+		* I finished the section and the talk off with a comparison between WebApp and Web roles. And Worker Roles and WebJobs.
+* Thank you
+	Hopefully I have given you a bit more knowledge about what is available on Azure and a head start when you go out and 
+	research what technologies you can use in Azure around WebApps.  
