@@ -21,8 +21,9 @@ Azure: The Good Parts - WebApps
 		You have the luxury of purchasing exactly the hardware and software you require to run your app. 
 		You also inherit the luxury of the hardware life-cycle, setting up, maintaining and retirement of the hardware.
 		While you have complete control over your hardware, having an on-premises data-centre will force you to purchase hardware in a scale up scenario.
-		Where you have to buy enough hardware to support your app in times of high load, which may only happen a fraction of the time.
-		Therefore for the majority of the time you are paying for hardware you are not using.
+		Where you have to buy enough hardware to support your app in times of high load and as your app grows in popularity	so will the size of your servers.
+		And most of the time your servers will only be in high load a fraction of the time. Therefore for the majority of the time you are paying for hardware 
+		you are not using.
 	* Could Computing
 		A modern cloud computing vender will be completely responsibility of purchasing, maintaining and retiring of the hardware for you. 
 		They will typically provide a range of services for you to use. 
@@ -30,8 +31,9 @@ Azure: The Good Parts - WebApps
 		Then as your app grows in popularity or in times of high load you spin up new instances of the app. 
 		This is the scale out scenario where you only pay for what you use.
 	* Azure
-		Currently Azure is available across the world in 17 data-centres, Azure is also available in 2 additional data-centres in China via a 3rd party provider.
-		In having so many data-centres in different regions across the globe Azure gives you the ability to deploy your app close to your customers.
+		Currently Azure is available across the world in 17 data-centres, Azure is also available in 2 additional data-centres in China via a 3rd party provider (21vianet).
+		In having so many data-centres in different regions across the globe Azure gives you the ability to deploy your app close to your customers or cover most of the 
+		worlds regions if you are global.
 		If your app stores sensitive data that cannot be saved outside of the country then you can deploy to data-centres within your country. 
 		Eg the Canadian Health Service use Azure but they don't store anything outside of Canada.
 	* Azure Services
@@ -173,10 +175,20 @@ Azure: The Good Parts - WebApps
 			* Idle connections are closed after 30mis
 			* You can only connect to your SQL instance on port 1433
 	* DocumentDB
-		Azure also provide a number of alternative data stores. Table storage, which I will talk about shortly and DocumentDB.
-		DocumentDB is a fully managed document database as a service specifically designed for modern mobile and web applications. DocumentDB is fast, schemaless and 
-		easily scaleable. It is possible to query your JSON documents using SQL. DocumentDb has deep intergration with Javascript allowing developer to execute multi-document 
-		transactions via familiar methods such as stored procedures, triggers, and UDFs. More info can be found at https://azure.microsoft.com/en-gb/documentation/articles/documentdb-introduction/
+		As well as Azure SQL Azure provide a range of other data storage technologies such as My SQL or Postgres in the relational family. Redis and Riak in the Key/Value family.
+		For graph databases there is Neo4j and in the Document database space there is Mongo, RethinkDb and Azure DocumentDB.
+		
+		Azure DocumentDB is Microsoft's offering in the feild of NoSQL JSON document databases.	DocumentDB is a fully managed document database as a service and designed to keep 
+		pace with modern rapidly evolving applications. DocumentDB nativly supports JSON and executes Javascript within it database engine. Meaning you can write and execute 
+		stored procedures and user defined functions directly on the database. DocumentDB automatically indexes all JSON documents, then allows you to query them with the 
+		familier SQL syntax. A well as JavaScript Azure also provide SDKs in .Net, Java, Python and more, so you up and running quickly with the tools and languages you are already
+		familier with.
+	* DocumentDB Portal Demo
+		* Show how to add a new DocumentDB, but don't (it takes a while).
+		* Locate the already created service.
+		* Add a users table
+		* Add a few documents { Rich Tasker, Matt Ross, Richard Garside }
+		* Execute a few queries
 * Azure Storage
 	Is another managed service that provides durable, scalable and redundant storage. Every Azure subscription get 500TB of storage which can be used across its
 	three services.
