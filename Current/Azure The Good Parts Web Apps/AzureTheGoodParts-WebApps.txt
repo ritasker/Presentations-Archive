@@ -17,29 +17,41 @@ Azure: The Good Parts - WebApps
 		I wont be talking about any of the IaaS services or any of the BI tools that Azure provide. For these service I have separate presentations.
 		Finally I wont be talking about billing, but MS do provide a simple cost calculator -> LINK.
 * What is Azure
+	Microsoft Azure is a cloud computing service provided by, the clue is in its name, Microsoft. But before I go into any detail lets try and answer 
+	the question "Why go to the cloud, why not use On-Premises servers?" 
 	* On-Premises Data Centres
-		You have the luxury of purchasing exactly the hardware and software you require to run your app. 
-		You also inherit the luxury of the hardware life-cycle, setting up, maintaining and retirement of the hardware.
-		While you have complete control over your hardware, having an on-premises data-centre will force you to purchase hardware in a scale up scenario.
-		Where you have to buy enough hardware to support your app in times of high load and as your app grows in popularity	so will the size of your servers.
-		And most of the time your servers will only be in high load a fraction of the time. Therefore for the majority of the time you are paying for hardware 
-		you are not using.
-	* Could Computing
-		A modern cloud computing vender will be completely responsibility of purchasing, maintaining and retiring of the hardware for you. 
-		They will typically provide a range of services for you to use. 
-		What usually happens in a cloud computing scenario is that you deploy your app onto enough hardware that will support a typical load. 
-		Then as your app grows in popularity or in times of high load you spin up new instances of the app. 
-		This is the scale out scenario where you only pay for what you use.
+		With On-Premises Data Centres, you have the luxury of purchasing exactly the hardware and software you require to run your applications. 
+		You also get the enjoyment of jumping out of bed on Patch Tuesday say "yay, I'm gonna patch some servers today!". No? What I'm trying to say is now 
+		you have setup and maintenance costs to deal with. 
+		
+		So you have released you app and you are getting a steady rate of traffic. What happens when you have periods of high load? Are you constrained buy 
+		the amount of hardware you have bought? Or are you able to deal with the load? If you can handel the load great! but what is that hardware doing in 
+		periods of low activity. The point here is that you are either going to buy too much or too little hardware.
+		
+		As the popularity of your application increases you are going to have to buy bigger, better hardware. This is the scale up model.
+		
+	* Cloud Computing
+		Cloud Computing comes in 3 forms,
+			* SaaS - Software-as-a-Service, were a company provides access to software over the internet. Such as GMail.
+			* PaaS - Platform-as-a-Service, provides a platform and environment to allow developers to build applications and services over the internet.
+				For example hosting a website.
+			* IaaS - Infrastructure-as-a-Service, gives you physical computing resourse in a virtualised environment, such as a VM.
+		The chances are most of you will have used at least one form of cloud comptuing today. That is one of the selling points of cloud computing, being able to 
+		provide universal access to computing power for your employees and customers.
+
+		The first think you will notice when choosing cloud computing is the reduction in cost, no more expenive licence fee. No more requisition and maintenance costs.
+		Venders will also provide a range of services which will keep your costs down as well.
+		A common scenario is to use load balencers and auto scaling to provision just enough hardware to cope with the current load. So you only pay for what you use.
+		
 	* Azure
 		Currently Azure is available across the world in 17 data-centres, Azure is also available in 2 additional data-centres in China via a 3rd party provider (21vianet).
-		In having so many data-centres in different regions across the globe Azure gives you the ability to deploy your app close to your customers or cover most of the 
-		worlds regions if you are global.
-		If your app stores sensitive data that cannot be saved outside of the country then you can deploy to data-centres within your country. 
+		In having so many data-centres in different regions across the globe Azure gives you the ability to deploy your app globally or close to your customers if they are 
+		only in a small region. If your app stores sensitive data that cannot be saved outside of the country then you can deploy to data-centres within your country. 
 		Eg the Canadian Health Service use Azure but they don't store anything outside of Canada.
+		
 	* Azure Services
 		Compute services 
-			This includes the Microsoft Azure Cloud Services (web and worker roles),Azure Virtual Machines, Azure Websites, 
-			and Azure Mobile Services.
+			This includes the Microsoft Azure Cloud Services (web and worker roles), Azure Websites, and Azure Mobile Services.
 		Data services 
 			This includes Microsoft Azure Storage (comprised of the Blob, Queue, Table, and Azure Files services), Azure SQL Database, 
 			and the Redis Cache.
@@ -65,32 +77,30 @@ Azure: The Good Parts - WebApps
 		* ACTIVE - The windows that appear when you navigate around the portal are call Blades and a collection of them are called Journeys. Here you can 
 		switch between or close any active Journeys.
 		* BILLING - Here you can find out what subscription you are on and how much money you have spent so far. As you can see I'm on the Pay-As-You-Go subscription 
-		and I have spent £###.
-		* HELP - Doesn't do anything.			
+		and I have spent £###.			
 * WebApps
 	* What is Azure WebApps
-		Azure WebApps is a managed cloud service which allows you to deploy a web application in a very short amount of time.
-		Azure WebApps support applications written in,
+		The Azure WebApps service is a managed cloud service, this means you get a VM which you cannot remote onto and you don't have to worry about software upgrades or server patches. 
+		THis service allows you to deploy a web application in a variety of languages in a very short amount of time.
+		The Azure team provide WebApp SDKs for,
 			* .Net
 			* Java
 			* Node
 			* PHP
 			* Python
-		In addition to building your own application if you know you will be building an E-Commerce system or simply hosting a blog, Azure WebApps also 
-		provides the ability to deploy a preconfigured WebApp using one of the popular Web Frameworks.
+			* and more.
 		
-		Because you WebApp is going to be highly popular the Azure WebApps Service also give you the ability to scale your app. This can be done manually or you
-		can autoscale your app based on certain metrics such as CPU usage. If you do have multiple instances Azure WebApps also provides a configurable load 
-		balancer.
+		In addition to building and deploying your own application, if you know you will be building an E-Commerce system or hosting a blog/CMS, the Azure team provide 
+		a number of templates and framework in the Azure Marketplace.
+				 
 	* Creating and Deploying a WebApp
+		Shall we deploy a Web app to Azure and have a play. Whos has got a stop watch? I want you to time me. 
 		* Create a WebApp via the Portal
 		* Create a new ASP.Net app in VS
 		* Deploy the app from VS
-	* Configuration
-		(Back in the portal, head over to the WebApp you have just created and deployed. Find the setting icon in the top bar.)
-		I am not going to go through all of the configurations settings, why? because is will be really boring and secondly I don't have time. 
-		But I will show the really useful ones.
-		
+		Now we have a WebApp we now can look at some of the portal features available to us.
+	* Settings
+		I am not going to go through all of the settings, why? because is will be really boring and secondly I don't have time.	But I will show the really useful ones.
 		* Application Settings
 			In the Application Settings blade we can see some settings for .Net, PHP, Java, etc versions amongst other settings.
 			* Always on
@@ -100,7 +110,7 @@ Azure: The Good Parts - WebApps
 				This has been really helpful for me in the past when I have had bugs that aren't reproducible locally. As long as you have the same version of the code locally
 				you can enable remote debugging and debug the code locally. But it can be quite slow.
 			* App Settings and Connection Strings
-				When you deploy your app, Azure will override the connection strings and app settings you have in your web.config. This is rally useful if you don't want 
+				When you deploy your app, Azure will override the connection strings and app settings you have in your web.config. This is really useful if you don't want 
 				the password to your production database in a config transform for everyone to see.
 		* Domain names and SSL
 			It is quite simple to setup a custom domain name and add SSL certificates in Azure.
@@ -134,30 +144,32 @@ Azure: The Good Parts - WebApps
 * Azure SQL
 	If you have an on premise server with a vanilla install of the latest version of Windows Server, how long will it take to provision a SQL Server install?
 	
-	Lets create one now! +New -> Data + Storage -> SQL Database. Give the database a name (leedssharp), we also need a server to attach the database too.
+	Lets create one now! I don't need you to time me this time. 
+	+New -> Data + Storage -> SQL Database. Give the database a name (leedssharp), we also need a server to attach the database too.
 	If you already have a server created you can select it here or create a new one. 
 	We will have to create a new one. 
-		* Lets give the server a name, this has to be unique as it will become part of the URL you will use to connect to the server.
+		* Lets give the server a name (ritasker), this has to be unique as it will become part of the URL you will use to connect to the server.
 		* Add an admin account
 		* Then select the data centre we want to use.
-	Next you can either setup a blank db or use the Adventure Works sample db, or if you had a backup you could restore from the backup.
-	We are almost done, we just need to select the pricing plan for the database. There are a few to choose from, differing in features, storage size and DTUs.
-		A DTU or Database Throughput Unit, is a value that represents how much CPU, memory, etc resource that database can have. Each server has a max of 2000 
-		DTUs which you can spend in any combination of pricing tiers. For example if you only selected the P3 tier you could only have 2 DBs, but if you only 
-		selected the S1 tier you could have 200 DBs.
-	Finally we have to allocate the server to a resource group.
-	While that is being setup it will talk a bit more about the Azure SQL Service. What Azure is doing here is basically a Database-as-a-Service. They are 
-	giving you a SQL Database in the cloud, which takes away all the maintenance and licensing costs. Also the fact I am stood here provisioning a SQL instance
-	in front of you is proof that the time spent setting up a SQL server is greatly reduced.
+		* Next you can either setup a blank db or use the Adventure Works sample db, or if you had a backup you could restore from the backup.
+		* We are almost done, we just need to select the pricing plan for the database. There are a few to choose from, differing in features, storage size and DTUs.
+			A DTU or Database Throughput Unit, is a value that represents how much CPU, memory, etc resource that database can have. Each server has a max of 2000 
+			DTUs which you can spend in any combination of pricing tiers. For example if you only selected the P3 tier you could only have 2 DBs, but if you only 
+			selected the S1 tier you could have 200 DBs.
+		* Finally we have to allocate the server to a resource group.
+	
+	While that is being setup it will talk a bit more about the Azure SQL Service. 
+	What Azure is doing here is basically setting up a Database-as-a-Service. They are	giving you a SQL Database in the cloud, which takes away all the maintenance and licensing costs. 
+	And all that time spent setting up a SQL server has gone.
+	
 	Azure SQL provides some great features such as,
 		* Elastic Scale - If you business is doing well you may need to think about sharding your DB. Azure provide a set of tools that will help you do so automatically.
-		* Predicable Performance - Because each database is allocated a fixed amount of resource, even if there is a database in the datacentre being hammered,
+		* Predicable Performance - Because each database is allocated a fixed amount of resource, even if there is a database on the same server being hammered,
 		that wont effect your database.
-		* Business Continuity - Each database in Azure SQL is part of a cluster of replication nodes, one primary and 2 secondary. Also all transactions are not 
+		* Business Continuity - Each database in Azure SQL is part of a cluster of replication nodes, one primary and 2 secondary. All transactions are not 
 		considered successful until the data has been written to the primary and at least one of the secondary nodes. There is also the option to setup 
 		geo-replication.
 		* And from the developer point of view, there is no major difference between Azure SQL and SQL Server. So you can continue using your favourite tools.
-	Check to see if the server is up. Any questions? If not GOTO Azure SQL vs SQL Server.
 	Now our server has been created lets have a quick looks at the portal. To see what has been created we will connect via SQL Management Studio. 
 		(Enter details, click connect, get an error.)
 	By Default Azure SQL denies all access to it. You have to add your IP address to a white list of allowed IPs, this includes the IPs of other Azure services.
