@@ -186,6 +186,7 @@ Azure: The Good Parts - WebApps
 			* All tables must have a clustered index
 			* Idle connections are closed after 30mis
 			* You can only connect to your SQL instance on port 1433
+			
 	* DocumentDB
 		As well as Azure SQL Azure provide a range of other data storage technologies such as My SQL or Postgres in the relational family. Redis and Riak in the Key/Value family.
 		For graph databases there is Neo4j and in the Document database space there is Mongo, RethinkDb and Azure DocumentDB.
@@ -246,7 +247,7 @@ Azure: The Good Parts - WebApps
 		that and you just want a simple way to communicate with the different parts of your app then Azure Queues would be the better choice. 
 		For more info see, https://azure.microsoft.com/en-gb/documentation/articles/service-bus-azure-and-service-bus-queues-compared-contrasted/
 		
-		What would you use queues for? A good example is a website that allows users to upload images. But the site needs to create a thumbnail for each image. THe thumbnail
+		What would you use queues for? A good example is a website that allows users to upload images. But the site needs to create a thumbnail for each image. The thumbnail
 		generation will take a long time to complete. You wouldn't want to hold the user up while that process is happening. So uploading the image to blob storage and putting
 		the image blob url in a message on a queue so the image can be processed outside of the webapp. Doing this stops the having to wait for the image to be processed 
 		before continuing. But also return the request thread to the thread pool freeing it up to handle the next request. Which is one of the first steps to make your site
