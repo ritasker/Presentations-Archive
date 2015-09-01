@@ -1,0 +1,27 @@
+﻿Introduction - 5 mins
+    + Who Am I
+    + What I am Talking About
+    + What I am Not Talking About
+    + What is Microsoft Azure
+      + On-Prem vs Cloud Computing
+WebApps and Web Roles - 10 mins
+    + WebApps
+    + WebRoles
+    + When to Which?
+Data Storage - 10 mins
+    + Azure SQL
+    + DocumentDB
+    + Table Storage
+    + When to Which?
+Queuing - 10 mins
+    + Azure Queues
+    + Service Bus
+    + When to Which?
+Background Tasks - 10 mins
+    + Web Roles
+    + Worker Roles
+    + When to Which?
+Other Technologies - 10 mins
+    + Blob Storage - 5 mins
+    + Application Insights - 5 mins
+Wrap up - 5 mins
