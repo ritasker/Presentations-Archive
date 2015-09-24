@@ -28,8 +28,8 @@ Queuing - 10 mins
     + Service Bus
     + When to use Which?
 Background Tasks - 10 mins
-    + Web Roles
-
+    + Web Jobs
+    + Worker Roles
     + When to use Which?
 Other Technologies - 10 mins
     + Blob Storage - 5 mins
